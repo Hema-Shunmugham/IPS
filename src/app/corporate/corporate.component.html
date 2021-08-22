@@ -1,0 +1,92 @@
+<form [formGroup]="corporateForm" class="w-100 container">
+  <div class="mb-3">
+    <div class="form-check form-check-inline" *ngFor="let item of titles; let i=index">
+      <input class="form-check-input" type="radio" [value]="item.value" [checked]="item.checked" formControlName="titleOptions" id="titleOptions"/>
+      <label class="form-check-label" for="titleOptions" >{{item.name}}</label>
+    </div>
+    <div *ngIf="f.titleOptions.errors" class="invalid-feedback">
+      <div *ngIf="f.titleOptions.errors.required">Please select a title</div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="form-group col">
+      <label for="firstName" class="fw-bold mb-3">First Name</label>
+      <input type="text" class="form-control" formControlName="firstName" id="firstName" [ngClass]="{ 'is-invalid': f.firstName.errors }">
+      <div *ngIf="f.firstName.errors" class="invalid-feedback">
+        <div *ngIf="f.firstName.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="form-group col">
+      <label for="lastName" class="fw-bold mb-3">Last Name</label>
+      <input type="text" class="form-control" formControlName="lastName" id="lastName" [ngClass]="{ 'is-invalid': f.lastName.errors }">
+      <div *ngIf="f.lastName.errors" class="invalid-feedback">
+        <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+      </div>
+    </div>
+    <div class="form-group col">
+      <label for="dob" class="fw-bold mb-3">Date of Birth</label>
+      <input class="form-control" type="date"  formControlName="dob" id="dob" [ngClass]="{ 'is-invalid': f.dob.errors }">
+      <div *ngIf="f.dob.getError('younger') as error" class="invalid-feedback">
+        Should be 18 years old!
+      </div>
+    </div>
+  </div>
+  <div class="corporate">
+    <div class="row mb-3">
+      <div class="form-group col">
+        <label for="acctName" class="fw-bold mb-3">Account Name</label>
+        <input type="text" class="form-control" formControlName="acctName" id="acctName" [ngClass]="{ 'is-invalid': f.acctName.errors }">
+        <div *ngIf="f.acctName.errors" class="invalid-feedback">
+          <div *ngIf="f.acctName.errors.required">Account Name is required</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="companyName" class="fw-bold mb-3">Company Name</label>
+        <input type="text" class="form-control" formControlName="companyName" id="companyName" [ngClass]="{ 'is-invalid': f.companyName.errors }">
+        <div *ngIf="f.companyName.errors" class="invalid-feedback">
+          <div *ngIf="f.companyName.errors.required">Company Name is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-group col">
+        <label for="abn" class="fw-bold mb-3">ABN</label>
+        <input type="text" class="form-control" formControlName="abn" id="abn" [ngClass]="{ 'is-invalid': f.abn.errors }">
+        <div *ngIf="f.abn.errors" class="invalid-feedback">
+          <div *ngIf="f.abn.errors.required">ABN is required</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="bankAcctNo" class="fw-bold mb-3">Bank Account Number</label>
+        <input type="text" class="form-control" formControlName="bankAcctNo" id="bankAcctNo" [ngClass]="{ 'is-invalid': f.bankAcctNo.errors }">
+        <div *ngIf="f.bankAcctNo.errors" class="invalid-feedback">
+          <div *ngIf="f.bankAcctNo.errors.required">Bank Account Number is required</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="bankAcctBsb" class="fw-bold mb-3">Bank Account BSB</label>
+        <input type="text" class="form-control" formControlName="bankAcctBsb" id="bankAcctBsb" [ngClass]="{ 'is-invalid': f.bankAcctBsb.errors }">
+        <div *ngIf="f.bankAcctBsb.errors" class="invalid-feedback">
+          <div *ngIf="f.bankAcctBsb.errors.required">Bank Account BSB is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-group col">
+        <label for="companyOfficers" class="fw-bold mb-3">Number of Company Officers</label>
+        <select formControlName="companyOfficers" id="companyOfficers" class="form-select" (change)="changeOption($event)">
+          <option value="">Select No of Company Officers</option>
+          <option *ngFor="let option of options">{{option}}</option>
+        </select>
+        <div *ngIf="f.companyOfficers.errors" class="invalid-feedback">
+          <div *ngIf="f.companyOfficers.errors.required">Number of Company Officers is required</div>
+        </div>
+      </div>
+    </div>
+    <div *appCompRepeat="selectedNoOfCompanyUsers">
+      <app-company></app-company>
+    </div>
+  </div>
+</form>
+<hr>
+

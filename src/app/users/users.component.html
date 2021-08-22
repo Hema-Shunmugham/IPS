@@ -1,0 +1,36 @@
+<div class="content" role="main">
+  <form [formGroup]="userForm" class="w-100">
+    <div class="row mb-3">
+      <div class="form-group col">
+          <label for="accountType" class="fw-bold mb-3">Account Type</label>
+          <select formControlName="accountType" id="accountType" class="form-select" (change)="changeType($event)">
+            <option value="">Select Account Type</option>
+            <option *ngFor="let type of accountTypes">{{type}}</option>
+          </select>
+          <div *ngIf="f.accountType.errors" class="invalid-feedback">
+            <div *ngIf="f.accountType.errors.required">Account Type is required</div>
+          </div>
+      </div>
+      <div class="form-group col">
+        <label for="noOfInd" class="fw-bold mb-3">Number of Individual(s)</label>
+        <select formControlName="noOfInd" id="noOfInd" class="form-select" (change)="changeOption($event)">
+          <option value="">Select No of Individual(s)</option>
+          <option *ngFor="let option of options">{{option}}</option>
+        </select>
+        <div *ngIf="f.noOfInd.errors" class="invalid-feedback">
+          <div>Number of Individual(s) is required</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedAccountType === 'Personal'">
+      <div *appCompRepeat="selectedNoOfInd">
+        <app-personal></app-personal>
+      </div>
+    </div>
+    <div *ngIf="selectedAccountType === 'Corporate'">
+      <div *appCompRepeat="selectedNoOfInd">
+       <app-corporate></app-corporate>
+      </div>
+    </div>
+  </form>
+</div>
